@@ -1,0 +1,34 @@
+{
+  "name": "Milan",
+  "age" : 28,
+  "grades": [1,2,3,4,2],
+  "locations": [
+    {
+      "lat": 44.32123,
+      "lng": 21.39358,
+      "country": {
+        "name": "Serbia",
+        "city": "Belgrade",
+        "streets": ["Some street1", "Data", "whatever"]
+      }
+    },
+    {
+      "lat": 45.32123,
+      "lng": 29.39358,
+      "country": {
+        "name": "Serbia",
+        "city": "Novi Sad",
+        "streets": ["whatever", "Data", "whatever"]
+      }
+    },
+    {
+      "lat": 15.32123,
+      "lng": 9.39358,
+      "country": {
+        "name": "Namibia",
+        "city": "Some city",
+        "streets": ["whatever", "Data", "whatever"]
+      }
+    }
+  ]
+}

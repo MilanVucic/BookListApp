@@ -25,6 +25,14 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
+    <TextView
+        android:id="@+id/numberOfResultsTextView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/booksRecyclerView"
         app:layout_constraintTop_toBottomOf="@id/searchButton"
