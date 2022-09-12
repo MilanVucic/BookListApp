@@ -1,6 +1,10 @@
 package com.vucic.booklist.models;
 
+import java.util.List;
+
 public interface Book {
     String getTitle();
-    String getAuthor();
+    String getSubtitle();
+    String getImageUrl();
+    List<String> getAuthors();
 }

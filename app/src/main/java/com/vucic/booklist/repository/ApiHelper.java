@@ -1,7 +1,6 @@
 package com.vucic.booklist.repository;
 
-import android.util.Log;
-
+import com.vucic.booklist.repository.callbacks.GetBooksCallback;
 import com.vucic.booklist.repository.google_models.SearchResponse;
 import com.vucic.booklist.repository.services.BooksService;
 
@@ -31,7 +30,7 @@ public class ApiHelper {
                 .build();
     }
 
-    public void searchBooks(String searchTerm) {
+    public void searchBooks(String searchTerm, GetBooksCallback callback) {
         BooksService booksService = retrofit.create(BooksService.class);
         Call<SearchResponse> call = booksService.searchBooks(searchTerm);
         call.enqueue(new Callback<SearchResponse>() {
@@ -39,12 +38,15 @@ public class ApiHelper {
             public void onResponse(Call<SearchResponse> call, Response<SearchResponse> response) {
                 if (response.isSuccessful()) {
                     SearchResponse body = response.body();
+                    callback.onSuccess(body);
                 } else {
+                    callback.onFailure("Response not successful:" + response.errorBody().toString());
                 }
             }
 
             @Override
             public void onFailure(Call<SearchResponse> call, Throwable t) {
+                callback.onFailure("Check connection.");
                 t.printStackTrace();
             }
         });

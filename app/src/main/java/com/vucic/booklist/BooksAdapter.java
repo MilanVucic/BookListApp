@@ -1,15 +1,20 @@
 package com.vucic.booklist;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 import com.vucic.booklist.models.Book;
 
 import java.util.List;
@@ -37,7 +42,29 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BookViewHold
 
     private void bindBook(BookViewHolder holder, Book book, int position) {
         holder.titleTextView.setText(book.getTitle());
-        holder.authorTextView.setText(book.getAuthor());
+        holder.subtitleTextView.setText(book.getSubtitle());
+        List<String> authors = book.getAuthors();
+        setAuthors(holder, authors);
+        setBackground(holder, position);
+        loadImage(book, holder.thumbnailImageView);
+    }
+
+    private void setAuthors(BookViewHolder holder, List<String> authors) {
+        if (authors != null) {
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int i = 0; i < authors.size(); i++) {
+                stringBuilder.append(authors.get(i));
+                if (i != authors.size() - 1) {
+                    stringBuilder.append(", ");
+                }
+            }
+            holder.authorTextView.setText(stringBuilder.toString());
+        } else {
+            holder.authorTextView.setText("Unknown");
+        }
+    }
+
+    private void setBackground(BookViewHolder holder, int position) {
         if (position % 2 == 0) {
             holder.containerLayout.setBackgroundColor(
                     context.getResources().getColor(R.color.book_background_2));
@@ -47,6 +74,21 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BookViewHold
         }
     }
 
+    private void loadImage(Book book, ImageView imageView) {
+        Picasso.get().load(book.getImageUrl()).into(imageView, new Callback() {
+            @Override
+            public void onSuccess() {
+                Log.i("SOME_TAG", "Success");
+            }
+
+            @Override
+            public void onError(Exception e) {
+                Log.i("SOME_TAG", "No Success");
+                e.printStackTrace();
+            }
+        });
+    }
+
     @Override
     public int getItemCount() {
         return bookList.size();
@@ -54,12 +96,16 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BookViewHold
 
     static class BookViewHolder extends RecyclerView.ViewHolder {
         TextView titleTextView;
+        TextView subtitleTextView;
         TextView authorTextView;
-        LinearLayout containerLayout;
+        ImageView thumbnailImageView;
+        ConstraintLayout containerLayout;
 
         public BookViewHolder(@NonNull View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.titleTextView);
+            thumbnailImageView = itemView.findViewById(R.id.thumbnailImageView);
+            subtitleTextView = itemView.findViewById(R.id.subtitleTextView);
             authorTextView = itemView.findViewById(R.id.authorTextView);
             containerLayout = itemView.findViewById(R.id.containerLayout);
         }

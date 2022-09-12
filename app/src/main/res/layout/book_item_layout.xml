@@ -1,23 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/book_background_1"
     android:padding="16dp"
     android:orientation="vertical"
     android:id="@+id/containerLayout">
 
+    <ImageView
+        android:id="@+id/thumbnailImageView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_width="@dimen/book_thumbnail_size"
+        android:layout_height="@dimen/book_thumbnail_size" />
+
     <TextView
         android:id="@+id/titleTextView"
-        android:text="This is some book"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/thumbnailImageView"
+        tools:text="State Policies on Science and Mathematics Education, 1992"
+        android:lines="2"
+        android:ellipsize="end"
         android:textSize="20sp"
-        android:layout_width="wrap_content"
+        android:textStyle="bold"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/subtitleTextView"
+        app:layout_constraintLeft_toLeftOf="@id/titleTextView"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleTextView"
+        tools:text="The Learning Trajectories Approach Learning Trajectories Approach"
+        android:textSize="18sp"
+        android:lines="1"
+        android:ellipsize="end"
+        android:layout_width="0dp"
         android:layout_height="wrap_content" />
     <TextView
         android:id="@+id/authorTextView"
-        android:text="Dude McGuy"
-        android:layout_width="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/subtitleTextView"
+        app:layout_constraintLeft_toLeftOf="@id/titleTextView"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:text="Dude McGuy, Dude McGuy, Dude McGuy, Dude McGuy"
+        android:layout_width="0dp"
         android:layout_height="wrap_content" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
